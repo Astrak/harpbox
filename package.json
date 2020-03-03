@@ -1,0 +1,32 @@
+{
+    "name": "matrix",
+    "version": "1.0.0",
+    "main": "index.js",
+    "license": "MIT",
+    "scripts": {
+        "start": "./node_modules/.bin/webpack-dev-server --config ./webpack.config.js",
+        "prepare": "if [ -d ./resources ]; then rm -r ./resources; fi; cp -r ./node_modules/@here/harp-map-theme/resources .",
+        "upload": "./node_modules/.bin/webpack && surge --domain harpbox.surge.sh"
+    },
+    "devDependencies": {
+        "ts-loader": "^6.2.0",
+        "typescript": "^3.6.4",
+        "webpack": "^4.41.1",
+        "webpack-cli": "^3.3.11",
+        "webpack-dev-server": "^3.8.2",
+        "webpack-merge": "^4.2.2"
+    },
+    "dependencies": {
+        "@here/harp-datasource-protocol": "latest",
+        "@here/harp-font-resources": "latest",
+        "@here/harp-geojson-datasource": "latest",
+        "@here/harp-geoutils": "latest",
+        "@here/harp-map-controls": "latest",
+        "@here/harp-map-theme": "latest",
+        "@here/harp-mapview": "latest",
+        "@here/harp-mapview-decoder": "latest",
+        "@here/harp-omv-datasource": "latest",
+        "get-pixels": "latest",
+        "three": "^0.114.0"
+    }
+}
