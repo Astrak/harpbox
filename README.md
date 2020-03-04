@@ -25,6 +25,7 @@ From this repo:
 
 -   Elevating vertices on a plane results in an overall diagonal pattern following the triangles orientation on the mesh.
 -   The algorithm reading the height misses to read or assign the last row of vertices and the south edge of the terrain tiles fall below the surface.
+-   The terrain meshes don't fit with their neighbours.
 
 Compliance problems with harp.gl:
 
