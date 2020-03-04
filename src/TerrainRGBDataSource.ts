@@ -7,14 +7,13 @@ import {
     webMercatorTilingScheme,
 } from "@here/harp-geoutils";
 import { DataSource, Tile } from "@here/harp-mapview";
-import { LoggerManager } from "@here/harp-utils";
-
-const logger = LoggerManager.instance.create("RGBTerrainDataSource");
-logger.warn(THREE.REVISION);
 
 const textureLoader = new THREE.TextureLoader();
 textureLoader.crossOrigin = ""; // empty assignment required to support CORS
 
+/**
+ * Class to plug RGB encoded terrain into harpgl's [[MapView]].
+ */
 export class TerrainRGBDataSource extends DataSource {
     /**
      * Constructs a new `WebTileDataSource`.
@@ -44,18 +43,7 @@ export class TerrainRGBDataSource extends DataSource {
             `https://api.mapbox.com/v4/mapbox.terrain-rgb/` +
             `${tileKey.level}/${tileKey.column}/${tileKey.row}@2x.pngraw?access_token=` +
             `${this.m_accessKey}`;
-        /*
-        return new Promise((resolve, reject) => {
-            getPixels(url, (error, pixels) => {
-                if (error) {
-                    reject(error);
-                }
-                console.log(pixels.shape.slice());
-                return resolve(new Float32Array(pixels.shape.slice()));
-            });
-        });
-        */
-        const color = new THREE.Color();
+
         Promise.resolve(this.loadTexture(url))
             .then(texture => {
                 texture.minFilter = THREE.LinearFilter;
@@ -78,6 +66,8 @@ export class TerrainRGBDataSource extends DataSource {
                     tile.center
                 );
 
+                // This is taken from the code for the background plane in OmvDataSource
+                // but doesn't work here for the sphere projection somehow. Requires fix.
                 if (shouldSubdivide) {
                     const modifier = new SphericalGeometrySubdivisionModifier(
                         (10 / 180) * Math.PI,
@@ -86,15 +76,12 @@ export class TerrainRGBDataSource extends DataSource {
                     modifier.modify(terrain.geometry as THREE.BufferGeometry);
                 }
 
-                const water = this.createWater(tmpV.x, tmpV.y, tile.center);
-
                 tile.objects.push(terrain);
-                //tile.objects.push(water);
                 tile.invalidateResourceInfo();
                 this.requestUpdate();
             })
             .catch(error => {
-                logger.error(
+                console.error(
                     `failed to load RGBTerrain tile ${tileKey.mortonCode()}: ${error}`
                 );
             });
@@ -108,8 +95,12 @@ export class TerrainRGBDataSource extends DataSource {
         heightMap: THREE.Texture,
         planeCenter: THREE.Vector3
     ): THREE.Mesh {
-        const maxRes = 100;
+        // TODO: limit terrain detail to a specific zoomLevel (Mapbox's RGB terrain
+        // is limited to 15 anyway).
         const maxZoomLevel = 13;
+
+        const maxRes = 100; // Number of vertices per side of tile, below maxZoomLevel.
+
         const z = Math.floor(this.mapView.zoomLevel);
         const res = maxRes; //z <= maxZoomLevel ? maxRes : maxRes / (2 * (z - maxZoomLevel));
         const geometry = new THREE.PlaneBufferGeometry(width, height, res, res);
@@ -135,20 +126,6 @@ export class TerrainRGBDataSource extends DataSource {
 
         const material = new THREE.MeshLambertMaterial({
             color: 0xc0b3aa,
-        });
-        const plane = new THREE.Mesh(geometry, material);
-        plane.position.copy(planeCenter);
-        return plane;
-    }
-
-    private createWater(
-        width: number,
-        height: number,
-        planeCenter: THREE.Vector3
-    ): THREE.Mesh {
-        const geometry = new THREE.PlaneBufferGeometry(width, height, 1, 1);
-        const material = new THREE.MeshBasicMaterial({
-            color: 0x80a9c1,
         });
         const plane = new THREE.Mesh(geometry, material);
         plane.position.copy(planeCenter);
