@@ -99,7 +99,12 @@ export class TerrainRGBDataSource extends DataSource {
         // is limited to 15 anyway).
         const maxZoomLevel = 13;
 
-        const maxRes = 100; // Number of vertices per side of tile, below maxZoomLevel.
+        // Number of vertices per side of tile, below maxZoomLevel. The tiles are 512x512
+        // but this results in too many vertices. Performance is very acceptable up to 150.
+        // However 100 is even better for low perf devices and the relief just needs to be
+        // symbolic, as the vector data rendering already is. Downside: mountain ranges
+        // are not visible at 1-6 zoom levels.
+        const maxRes = 100;
 
         const z = Math.floor(this.mapView.zoomLevel);
         const res = maxRes; //z <= maxZoomLevel ? maxRes : maxRes / (2 * (z - maxZoomLevel));
