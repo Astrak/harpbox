@@ -1,5 +1,7 @@
 # harpbox
 
+Live at [harpbox.surge.sh](harpbox.surge.sh).
+
 A [harp.gl](harp.gl) map implementing terrain by using the [Mapbox RGB terrain provider](https://docs.mapbox.com/help/troubleshooting/access-elevation-data/#mapbox-terrain-rgb).
 
 ![image](./harpbox.png)
@@ -25,7 +27,7 @@ From this repo:
 
 -   Elevating vertices on a plane results in an overall diagonal pattern following the triangles orientation on the mesh.
 -   The algorithm reading the height misses to read or assign the last row of vertices and the south edge of the terrain tiles fall below the surface.
--   The terrain meshes don't fit with their neighbours.
+-   The terrain meshes' boundaries don't fit with their neighbours.
 
 Compliance problems with harp.gl:
 
