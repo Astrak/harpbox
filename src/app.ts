@@ -6,7 +6,7 @@ import { GeoCoordinates } from "@here/harp-geoutils";
 
 const map = new MapView({
     canvas: document.getElementsByTagName("canvas")[0],
-    theme: "./harpbox.json",
+    theme: "./harpbox-theme.json",
     enableNativeWebglAntialias: false,
     tileCacheSize: 50,
 });

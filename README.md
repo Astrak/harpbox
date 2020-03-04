@@ -18,3 +18,15 @@ cd harpbox
 yarn
 yarn start
 ```
+
+## Known issues
+
+From this repo:
+
+-   Elevating vertices on a plane results in an overall diagonal pattern following the triangles orientation on the mesh.
+-   The algorithm reading the height misses to read or assign the last row of vertices and the south edge of the terrain tiles fall below the surface.
+
+Compliance problems with harp.gl:
+
+-   The elevation cannot be transfered to the vector data decoded in Omv. The code in this repo should be plugged into the harp's OmvDataSource so that the height data is sampled for each vector feature, either by the team (possibly ongoing with internal non-Mapbox and non-RGB terrain) or in a fork.
+-   The near culling plane of the camera culls the mountains at higher zoom levels.
