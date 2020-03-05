@@ -1,5 +1,11 @@
 # harpbox
 
+## Demo
+
+[harpbox.surge.sh](harpbox.surge.sh)
+
+## Description
+
 A [harp.gl](harp.gl) map implementing terrain by using the [Mapbox RGB terrain provider](https://docs.mapbox.com/help/troubleshooting/access-elevation-data/#mapbox-terrain-rgb).
 
 ![image](./harpbox.png)
@@ -9,10 +15,6 @@ A [harp.gl](harp.gl) map implementing terrain by using the [Mapbox RGB terrain p
 :warning: This terrain is **only** a mesh underlayed in render order below the vector data. The vector data is **not** elevated and does not know at all about the elevation.
 
 Elevation of vector data should be implemented in the current OmvDataSource of harp.gl instead (see that project). This is more of a demo mixing the harp suite with Mapbox RGB tiles for the moment.
-
-## Demo
-
-[harpbox.surge.sh](harpbox.surge.sh).
 
 ## Installation
 
