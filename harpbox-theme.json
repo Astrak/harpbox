@@ -2,7 +2,7 @@
     "definitions": {
         "parkColor": {
             "type": "color",
-            "value": "#9Cc498"
+            "value": "#9Cc49800"
         },
         "extrudedBuildingsCondition": {
             "type": "selector",
@@ -158,7 +158,7 @@
             "type": "directional",
             "color": "#F4DB9C",
             "name": "light2",
-            "intensity": 0.5,
+            "intensity": 0.9,
             "direction": {
                 "x": -1,
                 "y": 3,
@@ -1311,7 +1311,7 @@
                 ],
                 "technique": "fill",
                 "attr": {
-                    "color": "#98bd94"
+                    "color": "#98bd9400"
                 },
                 "renderOrder": 1
             },

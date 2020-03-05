@@ -49,6 +49,7 @@ export class TerrainRGBDataSource extends DataSource {
                 texture.minFilter = THREE.LinearFilter;
                 texture.magFilter = THREE.LinearFilter;
                 texture.generateMipmaps = false;
+                // Size is 512 when "@2x" is added after the tile key in the URL, 256 otherwise.
                 const size = texture.image.width;
 
                 const shouldSubdivide =
@@ -108,12 +109,17 @@ export class TerrainRGBDataSource extends DataSource {
 
         const z = Math.floor(this.mapView.zoomLevel);
         const res = maxRes; //z <= maxZoomLevel ? maxRes : maxRes / (2 * (z - maxZoomLevel));
-        const geometry = new THREE.PlaneBufferGeometry(width, height, res, res);
+        const geometry = new THREE.PlaneBufferGeometry(
+            width,
+            height,
+            res,
+            res - 2 // Needed to avoid gaps??
+        );
         const canvas = document.createElement("canvas");
         canvas.width = canvas.height = size;
         const ctx = canvas.getContext("2d")!;
         ctx.drawImage(heightMap.image as CanvasImageSource, 0, 0, size, size);
-        const imgData = ctx.getImageData(0, 0, size + 1, size).data;
+        const imgData = ctx.getImageData(0, 0, size + 1, size).data; // Needed to avoid shifts??
         for (let row = 0; row < res; row++) {
             const rowOnImage = Math.floor((row / res) * size);
             for (let column = 0; column < res; column++) {
