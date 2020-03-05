@@ -37,6 +37,7 @@ map.addDataSource(omvDataSource).then(() => {
     omvDataSource.setLanguages(["en"]);
 });
 
+// My own key. Please change to yours for your own use.
 const mapboxAccessKey =
     "pk.eyJ1IjoiZHVtYmxlZG9yZTk5IiwiYSI6ImNqc29meGFjeTBrYTk0M255eHZueWtydHMifQ.CJEbodjhMFYCdm8nmCsMhg";
 const terrain = new TerrainRGBDataSource(mapboxAccessKey);
