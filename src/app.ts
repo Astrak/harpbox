@@ -44,10 +44,10 @@ const terrain = new TerrainRGBDataSource(mapboxAccessKey);
 map.addDataSource(terrain);
 
 const controls = new MapControls(map);
-controls.maxTiltAngle = 50;
+controls.maxTiltAngle = 60;
 
 const ui = new MapControlsUI(controls, {
     zoomLevel: "input",
 });
 map.canvas.parentElement!.appendChild(ui.domElement);
-map.lookAt(new GeoCoordinates(12.03, -61.75), 9000, 0);
+map.lookAt(new GeoCoordinates(-33.93, 18.42), 25000, 58, 60);
