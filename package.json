@@ -26,7 +26,7 @@
         "@here/harp-mapview": "latest",
         "@here/harp-mapview-decoder": "latest",
         "@here/harp-omv-datasource": "latest",
-        "get-pixels": "latest",
-        "three": "^0.114.0"
+        "harp-standard-theme": "latest",
+        "three": "latest"
     }
 }
